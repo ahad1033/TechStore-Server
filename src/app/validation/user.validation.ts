@@ -16,7 +16,6 @@ const createUserZodSchema = z.object({
     }),
     phone: z.string({ required_error: "Phone is required" }),
     address: z.string().optional(),
-    needPassChange: z.boolean().optional(),
   }),
 });
 

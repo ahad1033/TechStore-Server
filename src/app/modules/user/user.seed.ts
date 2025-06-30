@@ -9,7 +9,6 @@ const superUser = {
   password: config.super_admin_password,
   role: "admin",
   phone: "01636428995",
-  needPassChange: false,
 };
 
 export const seedSuperAdmin = async () => {
