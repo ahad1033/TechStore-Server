@@ -94,7 +94,7 @@ const updateUserById = async (userId: string, updateData: Partial<IUser>) => {
 const resetUserPassword = async (userId: string, newPassword: string) => {
   try {
     const user = await User.findOne({ _id: userId, isDeleted: false });
-    
+
     if (!user) {
       throw new Error("User not found");
     }
@@ -105,7 +105,6 @@ const resetUserPassword = async (userId: string, newPassword: string) => {
     );
 
     user.password = hashedPassword;
-    user.needPassChange = true;
 
     await user.save();
 
@@ -121,5 +120,5 @@ export const UserServices = {
   getUserById,
   deleteUserById,
   updateUserById,
-  resetUserPassword
+  resetUserPassword,
 };
