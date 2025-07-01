@@ -8,6 +8,8 @@ export interface IOrderProduct {
 
 export interface IOrder {
   userId: Types.ObjectId | string;
+  name: string;
+  phone: string;
   products: IOrderProduct[];
   total: number;
   shippingAddress: string;

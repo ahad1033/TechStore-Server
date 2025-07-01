@@ -3,12 +3,8 @@ import { IOrder } from "./order.interface";
 
 const createOrder = async (data: IOrder) => {
   try {
-    // You might want to add more logic here like:
-    // - validating stock availability
-    // - adjusting stock quantities
-    // For now, just create the order document.
-
     const newOrder = new Order(data);
+
     const savedOrder = await newOrder.save();
 
     return savedOrder;
@@ -22,10 +18,9 @@ const createOrder = async (data: IOrder) => {
 
 const getAllOrders = async () => {
   try {
-    // Get all orders, populate user and product info for clarity
     return await Order.find()
-      .populate("userId", "name email") // Adjust fields as per User model
-      .populate("products.productId", "title price") // Adjust fields as per Product model
+      .populate("userId", "name email")
+      .populate("products.productId", "id title price images")
       .sort({ createdAt: -1 });
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -39,6 +34,7 @@ const getOrdersByUserId = async (userId: string) => {
   try {
     return await Order.find({ userId })
       .populate("products.productId", "title price")
+      .populate("userId", "name email")
       .sort({ createdAt: -1 });
   } catch (error: unknown) {
     if (error instanceof Error) {
