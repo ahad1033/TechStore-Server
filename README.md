@@ -1,4 +1,4 @@
-# Alishan - Backend (Stock Management System)
+# TechStore - Backend 
 
 This is the **backend service** for **TechStore**, a full-featured ecommerce web application built using **TypeScript**, **Node.js**, **Express**, and **MongoDB**. The backend handles all business logic, user roles, data validation, and secure API interactions to support the frontend system.
 
