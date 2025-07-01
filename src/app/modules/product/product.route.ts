@@ -33,17 +33,9 @@ router.delete(
 );
 
 // GET ALL PRODUCTS
-router.get(
-  "/get-all-product",
-  authMiddleware(USER_ROLE.admin, USER_ROLE.user),
-  ProductControllers.getProducts
-);
+router.get("/get-all-product", ProductControllers.getProducts);
 
 // GET A PRODUCTS BY ID
-router.get(
-  "/:id",
-  authMiddleware(USER_ROLE.admin, USER_ROLE.user),
-  ProductControllers.getProductById
-);
+router.get("/:id", ProductControllers.getProductById);
 
 export const ProductRoutes = router;
