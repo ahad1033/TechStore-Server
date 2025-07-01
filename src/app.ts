@@ -13,9 +13,8 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://tech-store-mu-ashen.vercel.app/",
+      "*",
+      // "https://tech-store-mu-ashen.vercel.app/",
     ],
     credentials: true,
   })
