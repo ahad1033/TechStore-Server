@@ -18,8 +18,6 @@ router.post(
 );
 
 // GET ORDERS
-// For user: returns only their orders
-// For admin: returns all orders
 router.get(
   "/get-orders",
   authMiddleware(USER_ROLE.user, USER_ROLE.admin),

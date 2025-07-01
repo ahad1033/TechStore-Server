@@ -21,6 +21,9 @@ const orderProductSchema = z.object({
 
 export const createOrderValidationSchema = z.object({
   body: z.object({
+    name: z
+      .string({ required_error: "Name is required" })
+      .min(3, "Name is too short"),
     products: z
       .array(orderProductSchema)
       .nonempty("At least one product is required"),
