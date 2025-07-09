@@ -34,21 +34,32 @@ const getOrders = async (req: Request, res: Response) => {
 
     const userRole = req.user?.role;
 
-    console.log("userId: ", userId);
-    console.log("userRole: ", userRole);
+    const { search, page, limit } = req.query;
 
     if (!userId) throw new Error("Unauthorized: User ID missing");
+
+    // page and limit are mandatory
+    if (!page || !limit) {
+      throw new Error("Both page and limit are required.");
+    }
+
+    const filters = {
+      search: search as string,
+      page: Number(page),
+      limit: Number(limit),
+    };
 
     // If admin, get all orders, else only user's orders
     const orders =
       userRole === "admin"
-        ? await OrderServices.getAllOrders()
-        : await OrderServices.getOrdersByUserId(userId);
+        ? await OrderServices.getAllOrders(filters)
+        : await OrderServices.getOrdersByUserId({ userId, filters });
 
     res.status(200).json({
       success: true,
       message: "Orders retrieved successfully!",
-      data: orders,
+      data: orders.data,
+      meta: orders.meta,
     });
   } catch (error) {
     let errorMessage = "Something went wrong!";

@@ -1,7 +1,7 @@
 import { Product } from "./product.model";
 import { IProduct } from "./product.interface";
 
-type ProductQuery = {
+type TProductQuery = {
   categoryId?: string;
   subcategoryId?: string;
   minPrice?: number;
@@ -45,7 +45,7 @@ const deleteProduct = async (id: string) => {
   }
 };
 
-const getProducts = async (query: ProductQuery) => {
+const getProducts = async (query: TProductQuery) => {
   const { categoryId, subcategoryId, minPrice, maxPrice, search, page, limit } =
     query;
 
