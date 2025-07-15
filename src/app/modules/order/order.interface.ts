@@ -7,12 +7,16 @@ export interface IOrderProduct {
 }
 
 export interface IOrder {
+  orderNumber?: number;
   userId: Types.ObjectId | string;
   name: string;
   phone: string;
   products: IOrderProduct[];
   total: number;
+  subTotal: number;
+  deliveryFee: number;
   shippingAddress: string;
   status?: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   paymentMethod?: string;
+  deliveryNotes?: string;
 }

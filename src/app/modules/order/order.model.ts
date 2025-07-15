@@ -15,6 +15,7 @@ const orderSchema = new Schema(
       ref: "User",
       required: true,
     },
+    orderNumber: { type: Number },
     products: [
       {
         productId: {
@@ -39,6 +40,8 @@ const orderSchema = new Schema(
       required: true,
       min: 0,
     },
+    subTotal: { type: Number, required: true, min: 0 },
+    deliveryFee: { type: Number, required: true, default: 0 },
     shippingAddress: {
       type: String,
       required: true,
@@ -53,6 +56,7 @@ const orderSchema = new Schema(
       default: "Cash on Delivery",
       required: true,
     },
+    deliveryNotes: { type: String },
   },
   { timestamps: true }
 );

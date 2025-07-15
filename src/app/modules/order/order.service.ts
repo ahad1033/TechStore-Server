@@ -9,7 +9,25 @@ type TOrderQuery = {
 
 const createOrder = async (data: IOrder) => {
   try {
-    const newOrder = new Order(data);
+    // STEP 1: Declare the default order number
+    const defaultStartId = 20250700;
+
+    // STEP 2: Find the highest existing order number
+    const lastOrder = await Order.findOne({})
+      .sort({ orderId: -1 })
+      .select("orderNumber")
+      .lean();
+
+    // STEP 3: Determine the neworder number
+    const orderNumber = lastOrder?.orderNumber
+      ? lastOrder.orderNumber + 1
+      : defaultStartId;
+
+    // STEP 4: Create order data with order number
+    const newOrder = new Order({
+      orderNumber,
+      ...data,
+    });
 
     const savedOrder = await newOrder.save();
 
@@ -82,8 +100,11 @@ const getOrdersByUserId = async ({
   try {
     const [data, total] = await Promise.all([
       Order.find(filter)
-        .populate("userId", "name email")
-        .populate("products.productId", "id title price images")
+        .populate("userId", "name email phone")
+        .populate(
+          "products.productId",
+          "id title regularPrice discountPrice images"
+        )
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit),

@@ -21,17 +21,29 @@ const orderProductSchema = z.object({
 
 export const createOrderValidationSchema = z.object({
   body: z.object({
+    userId: objectId,
     name: z
       .string({ required_error: "Name is required" })
       .min(3, "Name is too short"),
     products: z
       .array(orderProductSchema)
       .nonempty("At least one product is required"),
+    total: z
+      .number({ required_error: "Total is required" })
+      .nonnegative("Total must be non-negative"),
+    subTotal: z
+      .number({ required_error: "Subtotal is required" })
+      .nonnegative("Subtotal must be non-negative"),
+    deliveryFee: z
+      .number({ required_error: "Delivery fee is required" })
+      .nonnegative("Delivery fee must be non-negative"),
     shippingAddress: z
       .string({ required_error: "Shipping address is required" })
       .min(5, "Shipping address is too short"),
-    total: z
-      .number({ required_error: "Total price is required" })
-      .nonnegative("Total must be non-negative"),
+    status: z
+      .enum(["pending", "processing", "shipped", "delivered", "cancelled"])
+      .optional(),
+    paymentMethod: z.string().optional(),
+    deliveryNotes: z.string().optional(),
   }),
 });

@@ -40,7 +40,7 @@ const getOrders = async (req: Request, res: Response) => {
 
     // page and limit are mandatory
     if (!page || !limit) {
-      throw new Error("Both page and limit are required.");
+      throw new Error("Ppage and limit are required.");
     }
 
     const filters = {
