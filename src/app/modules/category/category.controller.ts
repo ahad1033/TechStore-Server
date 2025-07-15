@@ -7,8 +7,6 @@ export const createCategory = async (req: Request, res: Response) => {
   try {
     const data = req.body as ICategory;
 
-    console.log("categorydata", data);
-
     const result = await CategoryServices.createCategory(data);
 
     res.status(201).json({

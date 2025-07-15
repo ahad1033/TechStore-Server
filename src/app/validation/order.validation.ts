@@ -21,7 +21,7 @@ const orderProductSchema = z.object({
 
 export const createOrderValidationSchema = z.object({
   body: z.object({
-    userId: objectId,
+    userId: objectId.optional(),
     name: z
       .string({ required_error: "Name is required" })
       .min(3, "Name is too short"),

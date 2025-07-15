@@ -54,7 +54,6 @@ const orderSchema = new Schema(
     paymentMethod: {
       type: String,
       default: "Cash on Delivery",
-      required: true,
     },
     deliveryNotes: { type: String },
   },

@@ -45,8 +45,9 @@ const getAllOrders = async (filters: TOrderQuery) => {
 
   const filter: any = {};
 
-  if (search) {
-    filter.title = { $regex: search, $options: "i" };
+  if (search && !isNaN(Number(search))) {
+    const searchNumber = Number(search);
+    filter.$or = [{ orderNumber: searchNumber }, { total: searchNumber }];
   }
 
   const skip = (page - 1) * limit;
@@ -88,12 +89,15 @@ const getOrdersByUserId = async ({
 }) => {
   const { search, page, limit } = filters;
 
-  const filter: any = {};
+  const filter: any = {
+    userId,
+  };
 
-  if (search) {
-    filter.title = { $regex: search, $options: "i" };
+  // Only apply $or if search is a valid number
+  if (search && !isNaN(Number(search))) {
+    const searchNumber = Number(search);
+    filter.$or = [{ orderNumber: searchNumber }, { total: searchNumber }];
   }
-  if (userId) filter.userId = userId;
 
   const skip = (page - 1) * limit;
 
