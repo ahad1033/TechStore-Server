@@ -27,11 +27,26 @@ export const createCategory = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategory = async (_req: Request, res: Response) => {
+export const getCategory = async (req: Request, res: Response) => {
   try {
-    const result = await CategoryServices.getCategory();
+    const { search, page, limit } = req.query;
 
-    res.status(200).json({ success: true, data: result });
+    // page and limit are mandatory
+    if (!page || !limit) {
+      throw new Error("Page and limit are required.");
+    }
+
+    const filters = {
+      search: search as string,
+      page: Number(page),
+      limit: Number(limit),
+    };
+
+    const result = await CategoryServices.getCategory(filters);
+
+    res
+      .status(200)
+      .json({ success: true, data: result.data, meta: result.meta });
   } catch (error: any) {
     res.status(500).json({
       success: false,
