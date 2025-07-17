@@ -2,11 +2,11 @@ import { Router } from "express";
 
 import { AuthRoutes } from "../modules/auth/auth.route";
 import { UserRoutes } from "../modules/user/user.route";
+import { OrderRoutes } from "../modules/order/order.route";
 import { ProductRoutes } from "../modules/product/product.route";
 import { CategoryRoutes } from "../modules/category/category.route";
 import { AnalyticsRoutes } from "../modules/analytics/analytics.route";
 import { SubcategoryRoutes } from "../modules/subcategory/subcategory.route";
-import { OrderRoutes } from "../modules/order/order.route";
 
 const router = Router();
 
