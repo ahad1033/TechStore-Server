@@ -19,7 +19,7 @@ const orderProductSchema = z.object({
     .nonnegative("Price must be non-negative"),
 });
 
-export const createOrderValidationSchema = z.object({
+const createOrderValidationSchema = z.object({
   body: z.object({
     userId: objectId.optional(),
     name: z
@@ -47,3 +47,7 @@ export const createOrderValidationSchema = z.object({
     deliveryNotes: z.string().optional(),
   }),
 });
+
+export const OrderValidation = {
+  createOrderValidationSchema,
+};

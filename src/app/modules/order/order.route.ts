@@ -3,7 +3,7 @@ import express from "express";
 import { USER_ROLE } from "../user/user.constant";
 import { OrderControllers } from "./order.controller";
 import { authMiddleware } from "../../middlewares/authMiddleware";
-import { createOrderValidationSchema } from "../../validation/order.validation";
+import { OrderValidation } from "../../validation/order.validation";
 
 import validateRequest from "../../middlewares/validateRequest";
 
@@ -13,7 +13,7 @@ const router = express.Router();
 router.post(
   "/create-order",
   authMiddleware(USER_ROLE.user, USER_ROLE.admin),
-  validateRequest(createOrderValidationSchema),
+  validateRequest(OrderValidation.createOrderValidationSchema),
   OrderControllers.createOrder
 );
 
