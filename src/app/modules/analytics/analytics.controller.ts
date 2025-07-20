@@ -7,9 +7,6 @@ const getAnalytics = async (req: Request, res: Response) => {
 
     const userRole = req.user?.role;
 
-    console.log("REQ on backend: ", req.user);
-    // if (!userId) throw new Error("Unauthorized: User ID missing");
-
     const orders =
       userRole === "admin"
         ? await AnalyticsServices.getAdminAnalytics()

@@ -23,4 +23,19 @@ router.get(
   SubscriberControllers.getAllSubscribers
 );
 
+// UPDATE SUBSCRIBERS STATUS
+router.patch(
+  "/update-status/:id",
+  authMiddleware(USER_ROLE.admin),
+  validateRequest(SubscriberValidation.updateSubscriberStatusZodSchema),
+  SubscriberControllers.updateSubscriberStatus
+);
+
+// DELETE SUBSCRIBER
+router.delete(
+  "/delete-subscriber/:id",
+  authMiddleware(USER_ROLE.admin),
+  SubscriberControllers.deleteSubscriber
+);
+
 export const SubscriberRoutes = router;

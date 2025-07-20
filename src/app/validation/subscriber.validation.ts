@@ -10,6 +10,14 @@ const createSubscriberZodSchema = z.object({
   }),
 });
 
+// ZOD SCHEMA FOR UPDATING SUBSCRIBERS STATUS
+const updateSubscriberStatusZodSchema = z.object({
+  body: z.object({
+    status: z.enum(["pending", "approved", "cancelled"]).optional(),
+  }),
+});
+
 export const SubscriberValidation = {
   createSubscriberZodSchema,
+  updateSubscriberStatusZodSchema,
 };

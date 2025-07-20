@@ -60,7 +60,41 @@ const getAllSubscribers = async (filters: TSubscriberQuery) => {
   }
 };
 
+const deleteSubscriber = async (id: string) => {
+  try {
+    const deletedSubscriber = await Subscriber.findByIdAndDelete(id);
+
+    return deletedSubscriber;
+  } catch (error: unknown) {
+    if (error instanceof Error) throw new Error(error.message);
+    throw new Error("Failed to delete subscriber: Unknown error");
+  }
+};
+
+const updateSubscriberStatus = async (
+  id: string,
+  data: Partial<ISubscriber>
+) => {
+  try {
+    return await Subscriber.findByIdAndUpdate(
+      id,
+      { status: data.status },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to update status: Unknown error");
+  }
+};
+
 export const SubscriberServices = {
   createSubscriber,
+  deleteSubscriber,
   getAllSubscribers,
+  updateSubscriberStatus,
 };

@@ -47,13 +47,13 @@ const getAllSubscribers = async (req: Request, res: Response) => {
       limit: Number(limit),
     };
 
-    const orders = await SubscriberServices.getAllSubscribers(filters);
+    const subscribers = await SubscriberServices.getAllSubscribers(filters);
 
     res.status(200).json({
       success: true,
       message: "Subscribers retrieved successfully!",
-      data: orders.data,
-      meta: orders.meta,
+      data: subscribers.data,
+      meta: subscribers.meta,
     });
   } catch (error) {
     let errorMessage = "Something went wrong!";
@@ -67,7 +67,58 @@ const getAllSubscribers = async (req: Request, res: Response) => {
   }
 };
 
+const deleteSubscriber = async (req: Request, res: Response) => {
+  try {
+    const subscriberId = req.params.id;
+
+    await SubscriberServices.deleteSubscriber(subscriberId);
+
+    res.status(200).json({
+      success: true,
+      message: "Subscriber deleted successfully!",
+    });
+  } catch (error) {
+    let errorMessage = "Something went wrong!";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete subscriber",
+      error: errorMessage,
+    });
+  }
+};
+
+const updateSubscriberStatus = async (req: Request, res: Response) => {
+  try {
+    // SUBSCRIBER ID
+    const { id } = req.params;
+
+    const data = req.body;
+
+    await SubscriberServices.updateSubscriberStatus(id, data);
+
+    res.status(200).json({
+      success: true,
+      message: "Status updated successfully!",
+    });
+  } catch (error) {
+    let errorMessage = "Something went wrong!";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    res.status(500).json({
+      success: false,
+      message: "Failed to update subscribers status!",
+      error: errorMessage,
+    });
+  }
+};
+
 export const SubscriberControllers = {
   createSubscriber,
+  deleteSubscriber,
   getAllSubscribers,
+  updateSubscriberStatus,
 };
