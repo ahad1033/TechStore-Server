@@ -132,8 +132,27 @@ const getOrdersByUserId = async ({
   }
 };
 
+const updateOrderStatus = async (id: string, data: Partial<IOrder>) => {
+  try {
+    return await Order.findByIdAndUpdate(
+      id,
+      { status: data.status },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to update status: Unknown error");
+  }
+};
+
 export const OrderServices = {
   createOrder,
   getAllOrders,
+  updateOrderStatus,
   getOrdersByUserId,
 };

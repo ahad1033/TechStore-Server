@@ -24,4 +24,12 @@ router.get(
   OrderControllers.getOrders
 );
 
+// UPDATE ORDER STATUS
+router.patch(
+  "/update-status/:id",
+  authMiddleware(USER_ROLE.admin),
+  validateRequest(OrderValidation.updateOrderStatusZodSchema),
+  OrderControllers.updateOrderStatus
+);
+
 export const OrderRoutes = router;

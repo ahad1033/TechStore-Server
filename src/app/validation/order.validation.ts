@@ -48,6 +48,14 @@ const createOrderValidationSchema = z.object({
   }),
 });
 
+// ZOD SCHEMA FOR UPDATING ORDER STATUS
+const updateOrderStatusZodSchema = z.object({
+  body: z.object({
+    status: z.enum(["pending", "approved", "cancelled"]).optional(),
+  }),
+});
+
 export const OrderValidation = {
   createOrderValidationSchema,
+  updateOrderStatusZodSchema,
 };
